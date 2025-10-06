@@ -18,5 +18,5 @@ func on_process(_delta: float) -> void:
 		request_state_change.emit(self, "Idle")
 		return
 	
-	movement_component.move_to_direction(input_component.movement_direction, 500, 5000)
+	movement_component.move_to_direction(input_component.movement_direction, 1000, 10000)
 	movement_component.queue_move_and_slide()

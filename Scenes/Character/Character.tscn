@@ -58,6 +58,11 @@ metadata/_custom_type_script = "uid://b8ufr8vi2q1qc"
 script = ExtResource("8_wh6v8")
 metadata/_custom_type_script = "uid://b8ufr8vi2q1qc"
 
+[node name="CoyoteTimer" type="Timer" parent="StateMachine/Air"]
+unique_name_in_owner = true
+wait_time = 0.05
+one_shot = true
+
 [node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource("9_i76s4")
 metadata/_custom_type_script = "uid://b8ufr8vi2q1qc"

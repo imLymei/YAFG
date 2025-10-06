@@ -2,7 +2,7 @@ class_name MovementComponent
 extends Node
 
 
-const GRAVITY_FORCE: float = 1920.0
+const GRAVITY_FORCE: float = 9600.0
 
 
 @export var target: CharacterBody2D
