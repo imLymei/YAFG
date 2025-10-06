@@ -9,7 +9,7 @@ extends Label
 func _process(_delta: float) -> void:
 	var value = target.get(parameter_path)
 	
-	if not value:
+	if value == null:
 		text = "Property Undefined"
 	else:
 		text = str(value)
