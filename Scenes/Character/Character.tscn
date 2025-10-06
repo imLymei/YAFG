@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://dsd2r31cqu24w"]
+
+[ext_resource type="Script" uid="uid://bdnkax0ar0nxw" path="res://Scenes/Character/Character.gd" id="1_i60gv"]
+[ext_resource type="Script" uid="uid://dtuiog0nnct1d" path="res://Components/StateMachine/StateMachine.gd" id="2_1cd2p"]
+[ext_resource type="Script" uid="uid://2ji0jt2gxh8n" path="res://Components/InputComponent.gd" id="2_pp8xd"]
+[ext_resource type="Script" uid="uid://bqyn5fsr4hq4r" path="res://Components/MovementComponent.gd" id="3_hixmd"]
+[ext_resource type="Script" uid="uid://ngh8bnrtugkd" path="res://Scenes/Character/Idle.gd" id="3_pp8xd"]
+[ext_resource type="Script" uid="uid://cmgkn8k0jpbew" path="res://Scenes/Character/Moving.gd" id="4_3qx2k"]
+[ext_resource type="PackedScene" uid="uid://b5ejpvfoub4xq" path="res://Components/DebugLabel/DebugLabel.tscn" id="4_e0u81"]
+[ext_resource type="Script" uid="uid://brqrjy5vapnc6" path="res://Scenes/Character/Air.gd" id="8_wh6v8"]
+[ext_resource type="Script" uid="uid://c21u13mn470lo" path="res://Scenes/Character/Jump.gd" id="9_i76s4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i60gv"]
+size = Vector2(64, 128)
+
+[node name="Character" type="CharacterBody2D"]
+script = ExtResource("1_i60gv")
+
+[node name="Components" type="Node2D" parent="."]
+
+[node name="InputComponent" type="Node" parent="Components"]
+unique_name_in_owner = true
+script = ExtResource("2_pp8xd")
+metadata/_custom_type_script = "uid://2ji0jt2gxh8n"
+
+[node name="MovementComponent" type="Node" parent="Components" node_paths=PackedStringArray("target")]
+unique_name_in_owner = true
+script = ExtResource("3_hixmd")
+target = NodePath("../..")
+metadata/_custom_type_script = "uid://bqyn5fsr4hq4r"
+
+[node name="StateMachineDebugLabel" parent="Components" node_paths=PackedStringArray("target") instance=ExtResource("4_e0u81")]
+offset_top = -167.0
+offset_bottom = -144.0
+target = NodePath("../../StateMachine")
+parameter_path = &"current_state"
+
+[node name="DebugLabel" parent="Components" node_paths=PackedStringArray("target") instance=ExtResource("4_e0u81")]
+offset_top = -191.0
+offset_bottom = -168.0
+target = NodePath("../..")
+parameter_path = &"velocity"
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_1cd2p")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://dtuiog0nnct1d"
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_pp8xd")
+metadata/_custom_type_script = "uid://b8ufr8vi2q1qc"
+
+[node name="Moving" type="Node" parent="StateMachine"]
+script = ExtResource("4_3qx2k")
+metadata/_custom_type_script = "uid://b8ufr8vi2q1qc"
+
+[node name="Air" type="Node" parent="StateMachine"]
+script = ExtResource("8_wh6v8")
+metadata/_custom_type_script = "uid://b8ufr8vi2q1qc"
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("9_i76s4")
+metadata/_custom_type_script = "uid://b8ufr8vi2q1qc"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -32.0
+offset_top = -128.0
+offset_right = 32.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -64)
+shape = SubResource("RectangleShape2D_i60gv")
